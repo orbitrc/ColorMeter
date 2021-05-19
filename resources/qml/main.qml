@@ -8,7 +8,7 @@ Window {
   width: 400
   height: 300
   visible: true
-  title: qsTr("Hello World")
+  title: Process.env.BLUSHER_APP_NAME
 
   Preview {
     image: ColorMeter.image

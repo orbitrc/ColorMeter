@@ -20,10 +20,14 @@ HEADERS += \
 RESOURCES += resources/resources.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+QML_IMPORT_PATH = /usr/lib/blusher/qml
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
+
+DEFINES += BLUSHER_APP_VERSION=\\\"0.1.0\\\" \
+        "BLUSHER_APP_NAME=\"\\\"Color Meter\\\"\"" \
+        BLUSHER_DEBUG
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
