@@ -37,6 +37,9 @@ public:
     explicit ColorMeter(QObject *parent = nullptr);
     ~ColorMeter();
 
+    //===========================//
+    // Property methods          //
+    //===========================//
     QList<QColor> image() const;
 
     int mouseX() const;
@@ -50,6 +53,10 @@ public:
 
     bool running() const;
 
+    //==================//
+    // Other methods    //
+    //==================//
+    QPoint centering(int x, int y);
     void capture_image();
 
     void run();

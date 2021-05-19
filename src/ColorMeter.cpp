@@ -1,6 +1,7 @@
 #include "ColorMeter.h"
 
 #include <QDebug>
+#include <QPoint>
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -139,15 +140,31 @@ bool ColorMeter::running() const
     return this->m_running;
 }
 
+QPoint ColorMeter::centering(int x, int y)
+{
+    x = x - 10;
+    y = y - 10;
+
+    if (x < 0) {
+        x = 0;
+    }
+    if (y < 0) {
+        y = 0;
+    }
+
+    QPoint p(x, y);
+    return p;
+}
+
 void ColorMeter::capture_image()
 {
     Display *dpy;
     XImage *img;
 
+    QPoint centered = this->centering(this->mouseX(), this->mouseY());
     dpy = XOpenDisplay(NULL);
     img = XGetImage(dpy, XDefaultRootWindow(dpy),
-        this->mouseX(), this->mouseY(),
-//        0, 0,
+        centered.x(), centered.y(),
         20, 20,
         AllPlanes, ZPixmap);
 

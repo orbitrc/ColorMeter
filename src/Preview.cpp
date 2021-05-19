@@ -37,8 +37,11 @@ void Preview::paint(QPainter *painter)
             brush.setStyle(Qt::BrushStyle::SolidPattern);
             brush.setColor(this->m_image[i++]);
             painter->setPen(Qt::NoPen);
+            if (x == 10 && y == 10) {
+                painter->setPen(Qt::red);
+            }
             painter->setBrush(brush);
-            painter->drawRect(x * 20, y * 20, 20, 20);
+            painter->drawRect(x * 10, y * 10, 10, 10);
         }
         ++y;
     }
