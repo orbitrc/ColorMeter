@@ -25,7 +25,7 @@ void MoveEventWorker::doWork()
 
 //        this->_running = true;
 //        while (this->_running) {
-    while (1) {
+    while (this->_colorMeter->running()) {
         XNextEvent(dpy, &evt);
         switch (evt.type) {
         case MotionNotify:
@@ -35,6 +35,7 @@ void MoveEventWorker::doWork()
             break;
         case ButtonPress:
             XUngrabPointer(dpy, CurrentTime);
+            break;
         default:
             break;
         }
@@ -48,20 +49,33 @@ ColorMeter::ColorMeter(QObject *parent)
 {
     this->m_mouseX = 0;
     this->m_mouseY = 0;
+    this->m_pickMode = false;
 
     this->capture_image();
     QObject::connect(this, &ColorMeter::mouseXChanged,
                      this, [this]() {
-        this->capture_image();
+        if (this->m_pickMode) {
+            this->capture_image();
+        }
     });
     QObject::connect(this, &ColorMeter::mouseYChanged,
                      this, [this]() {
-        this->capture_image();
+        if (this->m_pickMode) {
+            this->capture_image();
+        }
     });
 
-    this->_running = false;
+    this->m_running = false;
 
-    this->run();
+    QObject::connect(this, &ColorMeter::pickModeChanged,
+                     this, [this](bool mode) {
+        if (mode) {
+            this->m_running = true;
+            this->run();
+        } else {
+            this->m_running = false;
+        }
+    });
 }
 
 ColorMeter::~ColorMeter()
@@ -101,6 +115,25 @@ void ColorMeter::setMouseY(int y)
 
         emit this->mouseYChanged(y);
     }
+}
+
+bool ColorMeter::pickMode() const
+{
+    return this->m_pickMode;
+}
+
+void ColorMeter::setPickMode(bool mode)
+{
+    if (this->m_pickMode != mode) {
+        this->m_pickMode = mode;
+
+        emit this->pickModeChanged(mode);
+    }
+}
+
+bool ColorMeter::running() const
+{
+    return this->m_running;
 }
 
 void ColorMeter::capture_image()

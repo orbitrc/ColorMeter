@@ -11,7 +11,22 @@ Window {
   title: Process.env.BLUSHER_APP_NAME
 
   Preview {
+    id: preview
+
     image: ColorMeter.image
+  }
+
+  Button {
+    id: pickButton
+
+    anchors.top: preview.bottom
+    anchors.topMargin: 20
+
+    title: 'Pick'
+
+    onClicked: {
+      ColorMeter.pickMode = true;
+    }
   }
 
 //  Flow {
