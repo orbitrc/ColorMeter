@@ -34,6 +34,9 @@ void MoveEventWorker::doWork()
             this->_colorMeter->setMouseY(evt.xmotion.y_root);
             break;
         case ButtonPress:
+            this->_colorMeter->setMouseX(evt.xmotion.x_root);
+            this->_colorMeter->setMouseY(evt.xmotion.y_root);
+            this->_colorMeter->setPickMode(false);
             XUngrabPointer(dpy, CurrentTime);
             break;
         default:

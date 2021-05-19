@@ -16,6 +16,8 @@ public:
         this->_colorMeter = colorMeter;
     }
 
+signals:
+
 public slots:
     void doWork();
 
