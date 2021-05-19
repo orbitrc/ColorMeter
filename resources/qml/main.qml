@@ -29,17 +29,37 @@ Window {
     }
   }
 
-//  Flow {
-//    width: 200
-//    height: 200
+  Text {
+    x: 200
+    y: 10
+    text: 'R: ' + hexTo256Red()
+  }
+  Text {
+    x: 200
+    y: 30
+    text: 'G: ' + hexTo256Green()
+  }
+  Text {
+    x:200
+    y: 50
+    text: 'B: ' + hexTo256Blue()
+  }
 
-//    Repeater {
-//      model: ColorMeter.image
-//      Rectangle {
-//        width: 10
-//        height: 10
-//        color: ColorMeter.image[index]
-//      }
-//    }
-//  }
+  Text {
+    x: 200
+    y: 200
+    text: ColorMeter.color.toString()
+  }
+
+  function hexTo256Red() {
+    return Number.parseInt(ColorMeter.color.toString().slice(1).slice(0, 2), 16);
+  }
+
+  function hexTo256Green() {
+    return Number.parseInt(ColorMeter.color.toString().slice(1).slice(2, 4), 16);
+  }
+
+  function hexTo256Blue() {
+    return Number.parseInt(ColorMeter.color.toString().slice(1).slice(4, 6), 16);
+  }
 }

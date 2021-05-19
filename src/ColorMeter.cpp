@@ -140,6 +140,20 @@ bool ColorMeter::running() const
     return this->m_running;
 }
 
+QColor ColorMeter::color() const
+{
+    return this->m_color;
+}
+
+void ColorMeter::setColor(const QColor &color)
+{
+    if (this->m_color != color) {
+        this->m_color = color;
+
+        emit this->colorChanged();
+    }
+}
+
 QPoint ColorMeter::centering(int x, int y)
 {
     x = x - 10;
@@ -188,6 +202,13 @@ void ColorMeter::capture_image()
         if (i != 0 && i % 20 == 0) {
             x = 0;
             ++y;
+        }
+        // Colour of centre.
+        if (x == 10 && y == 10) {
+            this->setColor(QColor::fromRgb(
+                color.red / 256,
+                color.green / 256,
+                color.blue / 256));
         }
         ++x;
         ++i;

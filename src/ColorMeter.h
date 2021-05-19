@@ -33,6 +33,7 @@ class ColorMeter : public QObject
     Q_PROPERTY(int mouseY READ mouseY WRITE setMouseY NOTIFY mouseYChanged)
     Q_PROPERTY(bool pickMode READ pickMode WRITE setPickMode NOTIFY pickModeChanged)
     Q_PROPERTY(bool running READ running NOTIFY runningChanged)
+    Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
 public:
     explicit ColorMeter(QObject *parent = nullptr);
     ~ColorMeter();
@@ -53,6 +54,9 @@ public:
 
     bool running() const;
 
+    QColor color() const;
+    void setColor(const QColor& color);
+
     //==================//
     // Other methods    //
     //==================//
@@ -67,6 +71,7 @@ signals:
     void mouseYChanged(int y);
     void pickModeChanged(bool mode);
     void runningChanged(bool running);
+    void colorChanged();
 
     void runLoop();
 
@@ -78,6 +83,7 @@ private:
     int m_mouseX;
     int m_mouseY;
     bool m_pickMode;
+    QColor m_color;
 };
 
 #endif // COLORMETER_H
