@@ -84,6 +84,7 @@ ColorMeter::ColorMeter(QObject *parent)
 
 ColorMeter::~ColorMeter()
 {
+    this->_thr->terminate();
     this->_thr->quit();
     this->_thr->wait();
 }
