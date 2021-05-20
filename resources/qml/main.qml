@@ -7,6 +7,11 @@ import ColorMeter 1.0
 Window {
   width: 400
   height: 300
+  minimumWidth: 400
+  minimumHeight: 300
+  maximumWidth: 400
+  maximumHeight: 300
+
   visible: true
   title: Process.env.BLUSHER_APP_NAME
 
